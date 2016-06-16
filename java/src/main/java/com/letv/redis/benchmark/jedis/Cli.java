@@ -35,8 +35,8 @@ public class Cli {
         options.addOption("t", "thread", true, "Specifies thread count to run.");
         options.addOption("r", "repeat", true,
                 "Specifies repeat count per thread.");
-//        options.addOption("b", "byte", true,
-//                "Specifies bytes for value object.");
+        //        options.addOption("b", "byte", true,
+        //                "Specifies bytes for value object.");
         options.addOption("c", "connection", true,
                 "Specifies connection pool size.");
         options.addOption("kp", "key prefix", true, "prefix of the key");
@@ -48,11 +48,11 @@ public class Cli {
         options.addOption("enableCluster", "enable Cluster", true,
                 "Specifies true or false.");
         options.addOption("enablestentinel", "enable stentinel", true, 
-        		"Specifies true or false.");
+                "Specifies true or false.");
         options.addOption("sentinels", "sentinels", true, 
-        		"sentinels ip:host,ip:host");
+                "sentinels ip:host,ip:host");
         options.addOption("passwd", "passwd", true, 
-        		"passwd for master");
+                "passwd for master");
     }
 
     public void parse() {
@@ -78,8 +78,8 @@ public class Cli {
                         "Using cli argument -kp=" + cmd.getOptionValue("kp"));
                 key_prefix = cmd.getOptionValue("kp");
             } else { 
-            	log.log(Level.SEVERE, "Missing kp option");
-            	help();
+                log.log(Level.SEVERE, "Missing kp option");
+                help();
             }
             if (cmd.hasOption("p")) {
                 log.log(Level.INFO,
@@ -144,23 +144,23 @@ public class Cli {
                 log.log(Level.SEVERE, "Missing opTimeout option");
                 help();
             }
-            
+
             if(cmd.hasOption("enablestentinel")){
-            	 log.log(Level.INFO,
-                         "Using cli argument -enablestentinel="
-                                 + cmd.getOptionValue("enablestentinel"));
-            	 enablestentinel = Boolean.valueOf(cmd.getOptionValue("enablestentinel"));
-            	 if (cmd.hasOption("sentinels")) {
-                     log.log(Level.INFO,
-                             "Using cli argument -sentinels="
-                                     + cmd.getOptionValue("sentinels"));
-                     sentinels =cmd.getOptionValue("sentinels");
-                 } else {
-                     log.log(Level.SEVERE, "Missing sentinels option");
-                     help();
-                 }
+                log.log(Level.INFO,
+                        "Using cli argument -enablestentinel="
+                                + cmd.getOptionValue("enablestentinel"));
+                enablestentinel = Boolean.valueOf(cmd.getOptionValue("enablestentinel"));
+                if (cmd.hasOption("sentinels")) {
+                    log.log(Level.INFO,
+                            "Using cli argument -sentinels="
+                                    + cmd.getOptionValue("sentinels"));
+                    sentinels =cmd.getOptionValue("sentinels");
+                } else {
+                    log.log(Level.SEVERE, "Missing sentinels option");
+                    help();
+                }
             }else{
-            	if (cmd.hasOption("enableCluster")) {
+                if (cmd.hasOption("enableCluster")) {
                     log.log(Level.INFO,
                             "Using cli argument -enableCluster="
                                     + cmd.getOptionValue("enableCluster"));
@@ -170,7 +170,7 @@ public class Cli {
                     help();
                 }
             }
-            
+
             if (cmd.hasOption("passwd")) {
                 log.log(Level.INFO,
                         "Using cli argument -passwd="

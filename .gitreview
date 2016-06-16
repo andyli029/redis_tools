@@ -1,0 +1,5 @@
+[gerrit]
+host=review.et.letv.com
+port=29418
+project=paas/oss/redis_tools
+defaultbranch=master

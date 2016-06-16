@@ -1,8 +1,10 @@
 package com.letv.redis.benchmark.common;
 
 import java.security.MessageDigest;
+import java.util.Random;
 
 public class StringGenerator {
+
     public static String generateValue(int n, int length) {
         StringBuilder result = new StringBuilder(String.valueOf(n));
         while (result.length() < length) {
@@ -32,6 +34,17 @@ public class StringGenerator {
         } catch (Exception e) {
             return "";
         }
+    }
+
+    public static String RandomString(int length) {
+        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";  
+        Random random = new Random();  
+        StringBuffer buf = new StringBuffer();  
+        for (int i = 0; i < length; i++) {  
+            int num = random.nextInt(62);  
+            buf.append(str.charAt(num));  
+        }  
+        return buf.toString();  
     }
 
     public static void main(String[] args) {

@@ -7,6 +7,8 @@ import java.text.NumberFormat;
 import java.util.*;
 import java.util.concurrent.CyclicBarrier;
 
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+
 public class JedisMain {
     public static void main(String[] args) throws Exception {
 
@@ -14,6 +16,7 @@ public class JedisMain {
 
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxTotal(Cli.connCount);
+        config.setMaxIdle(300);
 
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMaximumFractionDigits(2);
@@ -33,7 +36,7 @@ public class JedisMain {
                 sentinels.add(Cli.sentinels);
             }
             JedisSentinelPool sentinelPool = new JedisSentinelPool("mymaster", sentinels, config, Cli.opTimeout);
-
+            
             if (Cli.operation.equals("set")) {
                 System.out.println("JedisMain setkey startup");
 
@@ -136,8 +139,13 @@ public class JedisMain {
         else if (Cli.enableCluster) {
             Set<HostAndPort> jedisClusterNodes = new HashSet<>();
             jedisClusterNodes.add(new HostAndPort(Cli.host, Integer.valueOf(Cli.port)));
-            JedisCluster jedisCluster = new JedisCluster(jedisClusterNodes, Cli.opTimeout, config);
-
+            JedisCluster jedisCluster= null;
+            if (Cli.passwd != null)
+                 jedisCluster = new JedisCluster(jedisClusterNodes, Cli.opTimeout, Cli.opTimeout, 5, Cli.passwd,config);
+           
+            else
+                jedisCluster = new JedisCluster(jedisClusterNodes, Cli.opTimeout, config);
+            
             if (Cli.operation.equals("set")) {
                 System.out.println("JedisMain setkey startup");
 
@@ -238,6 +246,7 @@ public class JedisMain {
 
         } else {
             JedisPool pool = new JedisPool(config, Cli.host, Integer.valueOf(Cli.port), Cli.opTimeout);
+        
             if (Cli.operation.equals("set")) {
                 System.out.println("JedisMain setkey startup");
 

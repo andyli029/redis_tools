@@ -1,4 +1,9 @@
 /target/
 /.idea/
-./.*
-./java/.*
+.classpath
+.project
+.settings/
+java/.classpath
+java/.gitignore
+java/.project
+java/.settings/

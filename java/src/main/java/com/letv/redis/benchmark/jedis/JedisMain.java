@@ -1,4 +1,5 @@
 package com.letv.redis.benchmark.jedis;
+
 import com.letv.redis.benchmark.common.Constants;
 import com.letv.redis.benchmark.common.StringGenerator;
 import redis.clients.jedis.*;
@@ -245,8 +246,12 @@ public class JedisMain {
             jedisCluster.close();
 
         } else {
-            JedisPool pool = new JedisPool(config, Cli.host, Integer.valueOf(Cli.port), Cli.opTimeout);
-        
+           JedisPool pool;
+           if (Cli.passwd != null)
+               pool = new JedisPool(config, Cli.host, Integer.valueOf(Cli.port), Cli.opTimeout, Cli.passwd, 0);
+           else
+               pool = new JedisPool(config, Cli.host, Integer.valueOf(Cli.port), Cli.opTimeout);
+
             if (Cli.operation.equals("set")) {
                 System.out.println("JedisMain setkey startup");
 

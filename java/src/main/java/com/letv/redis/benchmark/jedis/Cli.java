@@ -28,7 +28,6 @@ public class Cli {
         this.args = args;
 
         options.addOption("help", "help", false, "show help.");
-        options.addOption("p", "help", false, "show help.");
         options.addOption("h", "host", true,
                 "Specifies a host to contact over the network.");
         options.addOption("p", "port", true,
